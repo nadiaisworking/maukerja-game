@@ -640,9 +640,11 @@ input:focus {
         font-size: 2rem;
     }
 
-    /* 2. Order: Title -> Game -> Instructions -> Prizes -> Footer */
+    /* 2. Order: Instructions -> Prizes -> Game (Bottom) */
     .game-center {
-        order: 1;
+        order: 3;
+        margin-bottom: 120px;
+        /* Space for mascots at bottom */
     }
 
     .instruction-box {
@@ -651,12 +653,12 @@ input:focus {
     }
 
     .info-sidebar {
-        order: 2;
+        order: 1;
         width: 100%;
     }
 
     .prize-display {
-        order: 3;
+        order: 2;
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
@@ -684,23 +686,25 @@ input:focus {
         /* Ensure touch target is big enough explicitly if needed, but font-size usually handles it */
     }
 
-    /* 4. Mascots - Move out of the way! */
+    /* 3. Mascots & Footer - NO LONGER FIXED */
+    /* Change them to absolute so they stay at the very bottom of the SCROLLABLE page */
     .mascot-naim {
+        position: absolute;
+        /* Was fixed */
         width: 100px;
-        /* Much smaller */
-        left: 0;
-        bottom: 60px;
-        /* Above footer curve */
-        z-index: 50;
-        /* Lower than modal */
+        left: 20px;
+        bottom: 50px;
+        /* Sit on curve */
+        z-index: 10;
     }
 
     .money-bag {
+        position: absolute;
+        /* Was fixed */
         font-size: 4rem;
-        /* Smaller emoji */
-        right: 0;
-        bottom: 70px;
-        z-index: 50;
+        right: 20px;
+        bottom: 60px;
+        z-index: 10;
     }
 
     /* 5. TNG Icon Fix */
@@ -712,16 +716,14 @@ input:focus {
 
     /* 6. Footer & Link */
     .bottom-curve {
+        position: absolute;
+        /* Was fixed */
         height: 80px;
-        /* Shorter curve */
-        bottom: 0;
-        /* Stick to bottom */
-        padding-top: 15px;
+        bottom: 0px;
+        width: 100%;
+        left: 0;
         border-radius: 0;
-        /* Flat on mobile? Or keep curve. Keep curve but wider */
-        width: 120%;
-        /* Wider to flow off screen */
-        left: -10%;
+        z-index: 1;
     }
 
     .footer-link {
@@ -821,26 +823,27 @@ input:focus {
 }
 
 .footer-link {
-    color: var(--primary-red);
+    background: var(--primary-red);
+    /* Changed to Red */
+    color: var(--white);
+    /* White text */
     font-family: var(--font-display);
     font-weight: 700;
-    /* Re-bolded slightly for readability at small size */
-    font-size: 1.5rem;
-    /* SMALLER (was 1.8rem) */
+    font-size: 1.1rem;
     text-decoration: none;
     z-index: 20;
-    transition: transform 0.2s;
-    /* Pop effect */
-    text-shadow:
-        2px 2px 0px #ffffff,
-        /* White outline */
-        4px 4px 6px rgba(0, 0, 0, 0.2);
-    /* Drop shadow */
+    transition: all 0.2s;
+    padding: 8px 20px;
+    border-radius: 30px;
+    box-shadow: 0 4px 0 #b92b39;
+    /* Dark Red Shadow */
+    border: 2px solid var(--white);
+    /* White border to pop */
 }
 
 .footer-link:hover {
-    transform: scale(1.1);
-    text-decoration: underline;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 rgba(0, 0, 0, 0.15);
 }
 
 /* Naim Mascot - Bottom Left */
