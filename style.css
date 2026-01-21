@@ -641,10 +641,11 @@ input:focus {
     }
 
     /* 2. Order: Instructions -> Prizes -> Game (Bottom) */
+    /* 2. Order: Instructions -> Prizes -> Game (Bottom) */
     .game-center {
         order: 3;
-        margin-bottom: 120px;
-        /* Space for mascots at bottom */
+        margin-bottom: 20px;
+        /* Reduced margin since mascots are gone */
     }
 
     .instruction-box {
@@ -659,38 +660,32 @@ input:focus {
 
     .prize-display {
         order: 2;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
+        flex-direction: column;
+        /* Stack vertically */
         width: 100%;
     }
 
     .prize-card {
-        width: 45%;
-        /* 2 per row */
+        width: 100%;
+        /* Full Width */
+        max-width: none;
         padding: 1rem;
     }
 
-    /* 3. Game Scene Optimization */
-    .game-scene {
-        aspect-ratio: auto;
-        height: 55vh;
-        /* Fixed height for playability */
-        width: 100%;
-        border-width: 4px;
-    }
-
-    .scene-item {
-        font-size: 2.5rem;
-        /* Slightly smaller items */
-        /* Ensure touch target is big enough explicitly if needed, but font-size usually handles it */
-    }
-
-    /* 3. Mascots & Prize Header - HIDDEN ON MOBILE */
+    /* 3. HIDDEN ELEMENTS ON MOBILE */
+    /* Mascots & Prize Header must be gone */
     .mascot-naim,
     .money-bag,
     .prize-header {
         display: none !important;
+    }
+
+    /* 4. Fix Game Scene Height */
+    .game-scene {
+        aspect-ratio: auto;
+        height: 60vh;
+        width: 100%;
+        border-width: 4px;
     }
 
     /* 5. TNG Icon Fix */
@@ -702,28 +697,19 @@ input:focus {
 
     /* 6. Footer & Link */
     .bottom-curve {
-        position: absolute;
-        /* Was fixed */
+        position: fixed;
+        /* Stick to bottom again */
         height: 80px;
         bottom: 0px;
         width: 100%;
         left: 0;
         border-radius: 0;
-        z-index: 1;
+        z-index: 100;
+        /* High z-index to be clickable */
     }
 
     .footer-link {
-        font-size: 1.2rem;
-    }
-
-    /* 7. Modal Mobile Fix */
-    .modal-content {
-        padding: 1.5rem;
-        width: 95%;
-    }
-
-    .modal-content h2 {
-        font-size: 2rem;
+        font-size: 1rem;
     }
 }
 
