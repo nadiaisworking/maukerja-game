@@ -606,73 +606,136 @@ input:focus {
 }
 
 /* Responsiveness */
+/* Responsiveness */
 @media (max-width: 900px) {
     body {
         overflow-x: hidden;
         overflow-y: auto;
     }
 
-    /* Scroll on mobile */
-
-    /* Scroll on mobile */
-
-    main {
-        height: auto;
-        padding: 1rem;
-        overflow: visible;
-        display: block;
-        /* Stack everything */
-    }
-
+    /* Stack everything vertically */
     .content-grid {
         display: flex;
         flex-direction: column;
         gap: 1.5rem;
+        margin-top: 0;
     }
 
-    .game-title {
+    /* 1. Optimize Title */
+    .main-header {
+        display: none;
+    }
+
+    /* Hide branding logo to save vertical space? Or keep small */
+
+    .game-title-text {
+        font-size: 2.5rem;
+        /* Smaller title */
+        margin-top: 10px;
+        transform: rotate(0deg);
+        /* Straighten for cleaner mobile look */
+    }
+
+    .game-title-text span.sub {
         font-size: 2rem;
     }
 
-    .game-section {
+    /* 2. Order: Title -> Game -> Instructions -> Prizes -> Footer */
+    .game-center {
         order: 1;
-        /* Game first */
+    }
+
+    .instruction-box {
+        order: 2;
+        margin-bottom: 1rem;
+    }
+
+    .info-sidebar {
+        order: 2;
+        width: 100%;
     }
 
     .prize-display {
-        display: flex;
-        /* Show them! */
+        order: 3;
         flex-direction: row;
-        justify-content: center;
-        gap: 1rem;
         flex-wrap: wrap;
-        order: 2;
-        /* Prizes below */
+        justify-content: center;
         width: 100%;
     }
 
     .prize-card {
-        margin-bottom: 1rem;
+        width: 45%;
+        /* 2 per row */
+        padding: 1rem;
+    }
+
+    /* 3. Game Scene Optimization */
+    .game-scene {
+        aspect-ratio: auto;
+        height: 55vh;
+        /* Fixed height for playability */
         width: 100%;
-        max-width: 300px;
-        /* Card limit */
-        transform: rotate(0deg) !important;
-        /* Reset rotations for clean stack */
+        border-width: 4px;
     }
 
-    .mascot-left,
-    .mascot-right {
-        display: none;
-        /* Hide mascots on small screens to save space */
+    .scene-item {
+        font-size: 2.5rem;
+        /* Slightly smaller items */
+        /* Ensure touch target is big enough explicitly if needed, but font-size usually handles it */
     }
 
-    .eggs-container {
-        gap: 0.5rem;
+    /* 4. Mascots - Move out of the way! */
+    .mascot-naim {
+        width: 100px;
+        /* Much smaller */
+        left: 0;
+        bottom: 60px;
+        /* Above footer curve */
+        z-index: 50;
+        /* Lower than modal */
     }
 
-    .egg {
-        width: 70px;
-        height: 90px;
+    .money-bag {
+        font-size: 4rem;
+        /* Smaller emoji */
+        right: 0;
+        bottom: 70px;
+        z-index: 50;
+    }
+
+    /* 5. TNG Icon Fix */
+    .tng-icon-overlay {
+        width: 80px;
+        top: -20px;
+        left: -10px;
+    }
+
+    /* 6. Footer & Link */
+    .bottom-curve {
+        height: 80px;
+        /* Shorter curve */
+        bottom: 0;
+        /* Stick to bottom */
+        padding-top: 15px;
+        border-radius: 0;
+        /* Flat on mobile? Or keep curve. Keep curve but wider */
+        width: 120%;
+        /* Wider to flow off screen */
+        left: -10%;
+    }
+
+    .footer-link {
+        font-size: 1.2rem;
+    }
+
+    /* 7. Modal Mobile Fix */
+    .modal-content {
+        padding: 1.5rem;
+        width: 95%;
+    }
+
+    .modal-content h2 {
+        font-size: 2rem;
     }
 }
 
