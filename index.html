@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Join the Campaign Maukerja Egg-cellent New Year Sale! Win prizes and boost your hiring.">
+  <title>Campaign Maukerja | Egg-cellent Game</title>
+  <link rel="stylesheet" href="./style.css">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600;700&family=Nunito:wght@400;700;900&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <div id="app">
+    <!-- Background Elements -->
+    <div class="bg-burst"></div>
+    <div class="bg-confetti"></div>
+
+    <!-- Header -->
+    <header class="main-header">
+      <div class="logo-container">
+        <img src="./assets/maukerja-logo.png" alt="Maukerja" class="branding-logo">
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Title Isolated at Top -->
+      <h1 class="game-title-text">
+        <div class="title-row">
+          <span class="icon">🔍</span> CARI BARANG <span class="icon">👀</span>
+        </div>
+        <span class="sub">TERSEMBUNYI</span>
+      </h1>
+
+      <!-- 3-Column aligned grid -->
+      <div class="content-grid">
+
+        <!-- Left Side: Instructions & Ticker -->
+        <aside class="info-sidebar">
+          <div class="winner-ticker" id="winner-ticker">
+            🏆 Aiman menang dalam 9 saat!
+          </div>
+
+          <div class="instruction-box">
+            <h3>CARA BERMAIN:</h3>
+            <ul>
+              <li>🔍 <strong>Cari 3 Barang</strong> yang ditunjuk.</li>
+              <li>☝️ <strong>Alihkan Barang</strong> (Drag) untuk cari yang tersembunyi.</li>
+              <li>⏱️ Anda ada <strong>10 Saat</strong>!</li>
+            </ul>
+          </div>
+        </aside>
+
+        <!-- Center: Game Section (Just Game Box) -->
+        <section class="game-center">
+          <!-- Helper HUD -->
+          <div class="game-hud">
+            <div class="target-items">
+              <span>CARI:</span>
+              <div class="target-icon" id="target-1">❓</div>
+              <div class="target-icon" id="target-2">❓</div>
+              <div class="target-icon" id="target-3">❓</div>
+            </div>
+            <div class="game-timer" id="game-timer">00:10</div>
+          </div>
+
+          <!-- The Canvas/Scene -->
+          <div class="game-scene" id="game-scene">
+            <!-- Start Overlay -->
+            <div class="scene-overlay" id="start-overlay">
+              <button class="start-btn" id="start-btn">MAIN SEKARANG</button>
+            </div>
+            <!-- Items via JS -->
+          </div>
+        </section>
+
+        <!-- Right Side: Prizes -->
+        <aside class="prize-display right">
+          <div class="prize-header">
+            ✨ JADI PEMENANG BERTUAH KAMI ✨
+          </div>
+
+          <div class="prize-card main-prize">
+            <img src="assets/tng.png" alt="TNG" class="tng-icon-overlay">
+            <h3 style="font-size:1.1rem; color:#2c1a05; margin-bottom:0">Hadiah Minggu Ini</h3>
+            <h3 style="font-size:1.5rem; margin-top:5px">RM10 Touch 'n Go E-Wallet</h3>
+            <p style="color:#ee3c4d; font-weight:bold; margin-top:0.5rem">Untuk 10 user bertuah!</p>
+          </div>
+        </aside>
+
+      </div>
+    </main>
+
+    <!-- Decorative Elements -->
+    <div class="bottom-curve">
+      <a href="https://www.maukerja.my/" target="_blank" class="footer-link">Maukerja.my</a>
+    </div>
+    <img src="assets/naim.png" class="mascot-naim" alt="Naim">
+    <div class="money-bag">💰</div> <!-- Changed to Money -->
+
+    <!-- Success Modal -->
+    <div class="modal hidden" id="register-modal">
+      <div class="modal-content winner-popup">
+        <span class="close-modal">&times;</span>
+        <h2>TAHNIAH!</h2>
+        <p class="sub-headline">Anda dah jumpa semua item!</p>
+
+        <p class="form-instruction">Isi maklumat untuk kami pilih pemenang bertuah!</p>
+
+        <!-- Google Sheets Configuration -->
+        <form id="campaign-form">
+          <input type="text" name="full_name" placeholder="Nama Penuh" required>
+          <input type="email" name="email" placeholder="Email" required>
+          <input type="tel" name="whatsapp" placeholder="Nombor Whatsapp" required>
+          <button type="submit" class="submit-btn hantar-btn">Hantar</button>
+        </form>
+
+        <div class="whatsapp-section">
+          <p>Kami akan umumkan pemenang di<br>Whatsapp Channel Maukerja!</p>
+          <a href="#" target="_blank" class="whatsapp-btn">Join Whatsapp Channel</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fail/Retry Modal -->
+    <div class="modal hidden" id="retry-modal">
+      <div class="modal-content">
+        <h2>ALAMAK!</h2>
+        <p>Masa dah tamat. Cuba lagi?</p>
+        <button class="start-btn" id="retry-btn">CUBA LAGI</button>
+      </div>
+    </div>
+  </div>
+  <script src="./assets_loader.js"></script>
+  <script src="./main.js"></script>
+</body>
+
+</html>
