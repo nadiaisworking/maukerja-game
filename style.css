@@ -686,25 +686,11 @@ input:focus {
         /* Ensure touch target is big enough explicitly if needed, but font-size usually handles it */
     }
 
-    /* 3. Mascots & Footer - NO LONGER FIXED */
-    /* Change them to absolute so they stay at the very bottom of the SCROLLABLE page */
-    .mascot-naim {
-        position: absolute;
-        /* Was fixed */
-        width: 100px;
-        left: 20px;
-        bottom: 50px;
-        /* Sit on curve */
-        z-index: 10;
-    }
-
-    .money-bag {
-        position: absolute;
-        /* Was fixed */
-        font-size: 4rem;
-        right: 20px;
-        bottom: 60px;
-        z-index: 10;
+    /* 3. Mascots & Prize Header - HIDDEN ON MOBILE */
+    .mascot-naim,
+    .money-bag,
+    .prize-header {
+        display: none !important;
     }
 
     /* 5. TNG Icon Fix */
