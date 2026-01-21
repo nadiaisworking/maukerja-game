@@ -292,7 +292,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Form Submission Logic (Google Sheets)
-    const GOOGLE_SCRIPT_URL = 'https://script.google.com/a/macros/ajobthing.com/s/AKfycbwAqKCP29ZksGnOaKSBLH6TAwzissLWOZ-GfHx_t-B4QWFL9vjUY4Bg9k3X4ukpavav/exec';
+    // URL updated from your screenshot (Version 1)
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxXKY1pALFEjw267MVglrc4yrt9hoNgDEb8rSERErr78gYASmoUvuJEh7NbQDKRATCOqA/exec';
 
     const form = document.getElementById('campaign-form');
 
