@@ -310,12 +310,14 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', (e) => {
         // DO NOT preventDefault(). Let the browser submit to the iframe.
 
-        const submitBtn = form.querySelector('button');
-        submitBtn.textContent = 'Menghantar...';
-        submitBtn.disabled = true;
+        // Defer UI changes to ensure form submission actually happens first
+        setTimeout(() => {
+            const submitBtn = form.querySelector('button');
+            submitBtn.textContent = 'Menghantar...';
+            submitBtn.disabled = true;
+        }, 10);
 
-        // Since we can't read the response from Google (CORS/Iframe),
-        // we assume success after a short delay if the form submitted.
+        // Assume success after delay
         setTimeout(() => {
             alert('Tahniah! Maklumat anda telah dihantar.');
             form.reset();
