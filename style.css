@@ -90,23 +90,7 @@ main {
 
 /* ... existing styles ... */
 
-/* Naim Mascot - Bottom Left */
-.mascot-naim {
-    position: fixed;
-    bottom: 20px;
-    left: 2%;
-    /* Adjusted left */
-    width: 250px;
-    /* Slightly bigger */
-    height: auto;
-    z-index: 9999;
-    /* Super high z-index */
-    pointer-events: none;
-    /* Let clicks pass through */
-    display: block !important;
-    /* Force display */
-    animation: softPulse 3s infinite ease-in-out;
-}
+/* Naim Mascot - Removed here to consolidate with bottom definitions */
 
 /* 3-Column Grid for Content Only */
 .content-grid {
@@ -606,6 +590,70 @@ input:focus {
 }
 
 /* Responsiveness */
+/* Naim Mascot - Bottom Left */
+.mascot-naim {
+    position: fixed;
+    bottom: 10px;
+    left: 22%;
+    width: 180px;
+    height: auto;
+    z-index: 9999;
+    pointer-events: none;
+    display: block !important;
+    animation: energyPulse 1.5s infinite ease-in-out;
+}
+
+/* Money Bag - Bottom Right */
+.money-bag {
+    position: fixed;
+    bottom: 30px;
+    right: 22%;
+    font-size: 7rem;
+    z-index: 10;
+    animation: energyPulse 1.5s infinite ease-in-out 0.75s;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
+}
+
+/* TNG Overlay Icon */
+.tng-icon-overlay {
+    position: absolute;
+    top: -40px;
+    left: -35px;
+    width: 130px;
+    transform: rotate(-10deg);
+    z-index: 10;
+    filter: drop-shadow(0 8px 6px rgba(0, 0, 0, 0.3));
+    animation: energyPulseRotate 1.5s infinite ease-in-out;
+}
+
+@keyframes energyPulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes energyPulseRotate {
+    0% {
+        transform: rotate(-10deg) scale(1);
+    }
+
+    50% {
+        transform: rotate(-10deg) scale(1.15);
+    }
+
+    100% {
+        transform: rotate(-10deg) scale(1);
+    }
+}
+
 /* Responsiveness */
 @media (max-width: 900px) {
     body {
