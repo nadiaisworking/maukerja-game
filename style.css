@@ -758,14 +758,20 @@ input:focus {
     /* 6. Footer & Link */
     .bottom-curve {
         position: fixed;
-        /* Stick to bottom again */
-        height: 80px;
+        height: 100px;
+        /* Slightly taller for button + version */
         bottom: 0px;
         width: 100%;
         left: 0;
         border-radius: 0;
-        z-index: 100;
-        /* High z-index to be clickable */
+        z-index: 1000;
+        /* Ensure top of everything */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 20px;
+        /* Lift text up for iPhone home bar */
     }
 
     .footer-link {
