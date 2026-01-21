@@ -736,11 +736,23 @@ input:focus {
         border-width: 4px;
     }
 
-    /* 5. TNG Icon Fix */
+    /* 5. TNG Icon Fix - BIGGER & Better Positioned */
     .tng-icon-overlay {
-        width: 80px;
-        top: -20px;
-        left: -10px;
+        width: 130px;
+        /* Restored to full size */
+        top: -35px;
+        left: -15px;
+        /* Slight overlap on edge for style */
+    }
+
+    /* Adjust padding if needed to prevent text overlap */
+    .prize-card {
+        width: 100%;
+        max-width: none;
+        padding: 2rem 1rem 1rem 1rem;
+        /* More top padding for icon breathability */
+        margin-top: 20px;
+        /* Space from instructions */
     }
 
     /* 6. Footer & Link */
