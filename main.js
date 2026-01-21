@@ -210,6 +210,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function handleItemClick(e, item) {
         if (!isPlaying) return;
+
+        // Prevent ghost clicks / bubbling
+        e.stopPropagation();
+        e.preventDefault();
+
         // If we just finished a drag, don't count as click
         if (e.target.checkDragging && e.target.checkDragging()) return;
 
@@ -224,9 +229,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Update HUD
             const slot = targetSlots.find(s => s.dataset.id === item.id);
-            if (slot) slot.classList.add('found');
+            if (slot) {
+                slot.classList.add('found');
+                // slot.textContent = '✅'; // Optional: clear checkmark
+            }
 
-            if (score === 3) gameWin();
+            if (score >= 3) gameWin();
         } else {
             // Shake
             const originalTransform = e.target.style.transform;
@@ -236,6 +244,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 100);
         }
     }
+
+    // ... (Game Loop, Win, Lose, Ticker remain same) ...
 
     function gameLoop() {
         timer--;
@@ -251,19 +261,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function gameWin() {
-        console.log('GAME WIN TRIGGERED!'); // Debug Log
         clearInterval(timerInterval);
         isPlaying = false;
         fireConfetti();
-        console.log('Confetti Fired. Waiting 500ms...');
         setTimeout(() => {
-            console.log('Removing hidden class from modal...');
-            if (registerModal) {
-                registerModal.classList.remove('hidden');
-                console.log('Modal shown!');
-            } else {
-                console.error('CRITICAL: Register Modal element not found!');
-            }
+            if (registerModal) registerModal.classList.remove('hidden');
         }, 500);
     }
 
@@ -277,7 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const names = ['Aiman', 'Aisyah', 'Farah', 'Amir', 'Siti'];
     setInterval(() => {
         const name = names[Math.floor(Math.random() * names.length)];
-        const time = Math.floor(Math.random() * 5) + 3; // Fast times
+        const time = Math.floor(Math.random() * 5) + 3;
         winnerTicker.textContent = `🏆 ${name} menang dalam ${time} saat!`;
     }, 3000);
 
@@ -291,55 +293,35 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Form Submission Logic (Google Sheets)
+    // -------------------------------------------------------------------------
+    // ROBUST FORM SUBMISSION (Hidden Iframe Method)
+    // -------------------------------------------------------------------------
+
     // URL updated from your screenshot (Version 1)
     const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxXKY1pALFEjw267MVglrc4yrt9hoNgDEb8rSERErr78gYASmoUvuJEh7NbQDKRATCOqA/exec';
 
     const form = document.getElementById('campaign-form');
 
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
+    // Configure Form to POST to Hidden Iframe
+    form.action = GOOGLE_SCRIPT_URL;
+    form.method = 'POST';
+    form.target = 'hidden_iframe'; // Matches existing <iframe name="hidden_iframe">
+
+    form.addEventListener('submit', (e) => {
+        // DO NOT preventDefault(). Let the browser submit to the iframe.
 
         const submitBtn = form.querySelector('button');
-        const originalText = submitBtn.textContent;
         submitBtn.textContent = 'Menghantar...';
         submitBtn.disabled = true;
 
-        const formData = new FormData(form);
-
-        try {
-            // Google Sheets requires 'no-cors' mode usually, but that hides the response status
-            // However, typical setup uses a helper or simple POST.
-            // We'll use a standard fetch with URLSearchParams to mimic a form post.
-
-            const params = new URLSearchParams();
-            for (const pair of formData.entries()) {
-                params.append(pair[0], pair[1]);
-            }
-
-            // We must use 'no-cors' if we don't want CORS errors, 
-            // but we won't know if it failed. 
-            // The script I provided returns JSON, but CORS blocks reading it.
-            // We assume success if no network error occurs.
-
-            await fetch(GOOGLE_SCRIPT_URL, {
-                method: 'POST',
-                body: params,
-                mode: 'no-cors'
-            });
-
-            // "no-cors" means we assume it worked if line above didn't throw
+        // Since we can't read the response from Google (CORS/Iframe),
+        // we assume success after a short delay if the form submitted.
+        setTimeout(() => {
             alert('Tahniah! Maklumat anda telah dihantar.');
             form.reset();
             registerModal.classList.add('hidden');
             location.reload();
-
-        } catch (error) {
-            console.error('Submission Error:', error);
-            alert('Ralat rangkaian. Sila semak internet anda.');
-        } finally {
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-        }
+        }, 1500);
     });
+});
 });
