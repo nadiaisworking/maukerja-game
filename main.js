@@ -1,4 +1,4 @@
-// VERSION 5.0 - FORCE UPDATE (Final Polish)
+// VERSION 10.0 - FORCE UPDATE (Audio Added)
 document.addEventListener('DOMContentLoaded', () => {
     // DOM Elements
     const startOverlay = document.getElementById('start-overlay');
@@ -12,6 +12,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const registerModal = document.getElementById('register-modal');
     const retryModal = document.getElementById('retry-modal');
     const closeModals = document.querySelectorAll('.close-modal');
+
+    // Audio Elements
+    const bgm = document.getElementById('bgm');
+    const sfxPop = document.getElementById('sfx-pop');
+    const sfxWin = document.getElementById('sfx-win');
+    const musicBtn = document.getElementById('music-toggle');
+    let isMuted = false;
 
     // HUD Target Slots
     const targetSlots = [
@@ -123,6 +130,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Start Timer
         clearInterval(timerInterval);
         timerInterval = setInterval(gameLoop, 1000);
+
+        // Audio Start
+        if (!isMuted) bgm.play().catch(e => console.log('Audio autoplay blocked'));
     }
 
     function createItem(item) {
@@ -236,6 +246,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (score >= 3) gameWin();
+
+            // SFX
+            if (!isMuted) {
+                sfxPop.currentTime = 0;
+                sfxPop.play();
+            }
         } else {
             // Shake
             const originalTransform = e.target.style.transform;
@@ -268,6 +284,9 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             if (registerModal) registerModal.classList.remove('hidden');
         }, 500);
+
+        // Win SFX
+        if (!isMuted) sfxWin.play();
     }
 
     function gameLose() {
@@ -292,6 +311,18 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', () => {
             btn.closest('.modal').classList.add('hidden');
         });
+    });
+
+    // Audio Toggle Logic
+    musicBtn.addEventListener('click', () => {
+        isMuted = !isMuted;
+        if (isMuted) {
+            bgm.pause();
+            musicBtn.textContent = '🔇';
+        } else {
+            bgm.play();
+            musicBtn.textContent = '🎵';
+        }
     });
 
     // -------------------------------------------------------------------------

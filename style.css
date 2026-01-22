@@ -74,10 +74,28 @@ body {
     left: 30px;
 }
 
-.timer-container,
-.music-toggle {
-    display: none;
+/* Music Toggle */
+.music-toggle-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1100;
+    background: var(--accent-yellow);
+    border: 3px solid var(--text-dark);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
+    transition: transform 0.1s;
 }
+
+.music-toggle-btn:active {
+    transform: translateY(4px);
+    box-shadow: none;
+}
+
 
 /* Main Layout - Flex Column for Title + Grid */
 main {
