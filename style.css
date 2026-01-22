@@ -1,4 +1,4 @@
-/* FORCE UPDATE v5 (Logo Fix) */
+/* FORCE UPDATE v7.0 (Mobile Logo Final) */
 :root {
     --primary-red: #ee3c4d;
     --accent-yellow: #ffde59;
@@ -57,17 +57,21 @@ body {
     height: 80px;
 }
 
+/* Logo Utilities */
+.branding-logo {
+    height: 120px;
+    width: auto;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+}
+
+.mobile-only {
+    display: none;
+}
+
 .logo-container {
     position: absolute;
     top: 20px;
     left: 30px;
-}
-
-.branding-logo {
-    height: 120px;
-    /* 2x Bigger */
-    width: auto;
-    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
 }
 
 .timer-container,
@@ -673,20 +677,28 @@ input:focus {
     /* 1. Optimize Title */
     .main-header {
         display: flex;
-        /* Show on mobile */
         height: auto;
-        padding: 5px;
+        padding: 10px;
         justify-content: center;
+        background: transparent;
     }
 
     .logo-container {
         position: static;
-        /* Center in flow */
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
 
-    .branding-logo {
+    .branding-logo.desktop-only {
+        display: none;
+    }
+
+    .branding-logo.mobile-only {
+        display: block;
         height: 60px;
-        /* Smaller for mobile */
+        /* Medium size for mobile */
+        width: auto;
     }
 
     .game-title-text {
