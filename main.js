@@ -1,4 +1,4 @@
-// VERSION 13.0 - FORCE UPDATE (Audio Debug)
+// VERSION 14.0 - FORCE UPDATE (Zero Delay Audio)
 document.addEventListener('DOMContentLoaded', () => {
     // DOM Elements
     const startOverlay = document.getElementById('start-overlay');

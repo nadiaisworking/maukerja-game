@@ -1,4 +1,4 @@
-<!-- FORCE UPDATE v8.0 (Filename Fix) -->
+<!-- FORCE UPDATE v14.0 (Audio Delay Fix) -->
 <!doctype html>
 <html lang="en">
 
@@ -24,15 +24,15 @@
     <div class="bg-burst"></div>
     <div class="bg-confetti"></div>
 
-    <!-- Audio Assets -->
-    <audio id="bgm" loop>
-      <source src="./assets/bgm.mp3" type="audio/mpeg">
+    <!-- Audio Assets (Updated to Root Path) -->
+    <audio id="bgm" loop preload="auto">
+      <source src="./bgm.mp3" type="audio/mpeg">
     </audio>
-    <audio id="sfx-pop">
-      <source src="./assets/pop.mp3" type="audio/mpeg">
+    <audio id="sfx-pop" preload="auto">
+      <source src="./pop.mp3" type="audio/mpeg">
     </audio>
-    <audio id="sfx-win">
-      <source src="./assets/win.mp3" type="audio/mpeg">
+    <audio id="sfx-win" preload="auto">
+      <source src="./win.mp3" type="audio/mpeg">
     </audio>
 
     <!-- Music Toggle -->
