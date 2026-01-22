@@ -31,12 +31,16 @@ document.addEventListener('DOMContentLoaded', () => {
     async function loadSound(url, key) {
         try {
             const response = await fetch(url);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
             const arrayBuffer = await response.arrayBuffer();
             const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
             buffers[key] = audioBuffer;
-            console.log(`Loaded ${key}`);
         } catch (e) {
-            console.error(`Failed to load ${key}`, e);
+            // ALERT THE USER
+            if (!window.hasAlertedAudio) {
+                alert(`⚠️ AUDIO ERROR: Could not load '${key}.mp3'.\nThe file might be corrupted or not a real MP3.\nError: ${e.message}`);
+                window.hasAlertedAudio = true;
+            }
         }
     }
 
