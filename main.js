@@ -308,6 +308,10 @@ document.addEventListener('DOMContentLoaded', () => {
     form.method = 'POST';
     form.target = 'hidden_iframe'; // Matches existing <iframe name="hidden_iframe">
 
+    // Modals (Updated)
+    const successModal = document.getElementById('success-modal');
+    const finishBtn = document.getElementById('finish-btn');
+
     form.addEventListener('submit', (e) => {
         // DO NOT preventDefault(). Let the browser submit to the iframe.
 
@@ -318,12 +322,25 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.disabled = true;
         }, 10);
 
-        // Assume success after delay
+        // Transition to Success Modal after delay
         setTimeout(() => {
-            alert('Tahniah! Maklumat anda telah dihantar.');
-            form.reset();
+            // Hide Form
             registerModal.classList.add('hidden');
-            location.reload();
+            form.reset();
+            const submitBtn = form.querySelector('button');
+            submitBtn.textContent = 'Hantar';
+            submitBtn.disabled = false;
+
+            // Show Success Modal
+            successModal.classList.remove('hidden');
         }, 1500);
     });
+
+    // Finish Button resets the game
+    if (finishBtn) {
+        finishBtn.addEventListener('click', () => {
+            successModal.classList.add('hidden');
+            location.reload(); // Refresh page to restart
+        });
+    }
 });
