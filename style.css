@@ -1,4 +1,4 @@
-/* FORCE UPDATE v7.0 (Mobile Logo Final) */
+/* FORCE UPDATE v9.0 (Bigger Mobile Logo) */
 :root {
     --primary-red: #ee3c4d;
     --accent-yellow: #ffde59;
@@ -696,7 +696,7 @@ input:focus {
 
     .branding-logo.mobile-only {
         display: block;
-        height: 60px;
+        height: 90px;
         /* Medium size for mobile */
         width: auto;
     }
