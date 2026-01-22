@@ -1,4 +1,4 @@
-// VERSION 10.0 - FORCE UPDATE (Audio Added)
+// VERSION 12.0 - FORCE UPDATE (Aggressive Audio)
 document.addEventListener('DOMContentLoaded', () => {
     // DOM Elements
     const startOverlay = document.getElementById('start-overlay');
@@ -19,6 +19,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const sfxWin = document.getElementById('sfx-win');
     const musicBtn = document.getElementById('music-toggle');
     let isMuted = false;
+
+    // --- AUTOPLAY LOGIC ---
+    // 1. Try to play immediately
+    bgm.play().catch(() => {
+        console.log("Autoplay blocked. Waiting for interaction.");
+        // 2. Play on ANY click (Rescue)
+        document.addEventListener('click', () => {
+            if (!isMuted && bgm.paused) bgm.play();
+        }, { once: true });
+    });
 
     // HUD Target Slots
     const targetSlots = [
@@ -131,8 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInterval(timerInterval);
         timerInterval = setInterval(gameLoop, 1000);
 
-        // Audio Start
-        if (!isMuted) bgm.play().catch(e => console.log('Audio autoplay blocked'));
+        // Audio (Already handled by global autoplay logic)
     }
 
     function createItem(item) {
