@@ -1,4 +1,4 @@
-// VERSION 12.0 - FORCE UPDATE (Aggressive Audio)
+// VERSION 13.0 - FORCE UPDATE (Audio Debug)
 document.addEventListener('DOMContentLoaded', () => {
     // DOM Elements
     const startOverlay = document.getElementById('start-overlay');
@@ -20,15 +20,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const musicBtn = document.getElementById('music-toggle');
     let isMuted = false;
 
+    // --- AUDIO DEBUG & SETUP ---
+    // Force correct source just in case
+    bgm.src = "./bgm.mp3";
+    sfxPop.src = "./pop.mp3";
+    sfxWin.src = "./win.mp3";
+
+    bgm.addEventListener('error', (e) => {
+        console.error("BGM Error:", bgm.error);
+        // Only alert once to avoid spam
+        if (!window.hasAlertedAudio) {
+            alert("⚠️ MUSIC ERROR: 'bgm.mp3' not found or blocked!\nPlease check file name on GitHub.");
+            window.hasAlertedAudio = true;
+        }
+    });
+
     // --- AUTOPLAY LOGIC ---
     // 1. Try to play immediately
-    bgm.play().catch(() => {
-        console.log("Autoplay blocked. Waiting for interaction.");
-        // 2. Play on ANY click (Rescue)
-        document.addEventListener('click', () => {
-            if (!isMuted && bgm.paused) bgm.play();
-        }, { once: true });
-    });
+    const playPromise = bgm.play();
+
+    if (playPromise !== undefined) {
+        playPromise.catch(() => {
+            console.log("Autoplay blocked. Waiting for interaction.");
+            // 2. Play on ANY click (Rescue)
+            document.addEventListener('click', () => {
+                if (!isMuted && bgm.paused) {
+                    bgm.play().catch(e => console.error("Resume play failed", e));
+                }
+            }, { once: true });
+        });
+    }
 
     // HUD Target Slots
     const targetSlots = [
