@@ -671,13 +671,26 @@ input:focus {
 
     /* 1. Optimize Title */
     .main-header {
-        display: none;
+        display: flex;
+        /* Show on mobile */
+        height: auto;
+        padding: 5px;
+        justify-content: center;
     }
 
-    /* Hide branding logo to save vertical space? Or keep small */
+    .logo-container {
+        position: static;
+        /* Center in flow */
+    }
+
+    .branding-logo {
+        height: 60px;
+        /* Smaller for mobile */
+    }
 
     .game-title-text {
         font-size: 2.5rem;
+
         /* Smaller title */
         margin-top: 10px;
         transform: rotate(0deg);
