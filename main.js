@@ -1,4 +1,4 @@
-// VERSION 4.0 - FORCE UPDATE (Database Fix)
+// VERSION 5.0 - FORCE UPDATE (Final Polish)
 document.addEventListener('DOMContentLoaded', () => {
     // DOM Elements
     const startOverlay = document.getElementById('start-overlay');
