@@ -1,4 +1,4 @@
-// VERSION 14.0 - FORCE UPDATE (Zero Delay Audio)
+// VERSION 16.0 - FORCE UPDATE (Web Audio Fix)
 document.addEventListener('DOMContentLoaded', () => {
     // DOM Elements
     const startOverlay = document.getElementById('start-overlay');
@@ -13,43 +13,73 @@ document.addEventListener('DOMContentLoaded', () => {
     const retryModal = document.getElementById('retry-modal');
     const closeModals = document.querySelectorAll('.close-modal');
 
-    // Audio Elements
-    const bgm = document.getElementById('bgm');
-    const sfxPop = document.getElementById('sfx-pop');
-    const sfxWin = document.getElementById('sfx-win');
+    // --- WEB AUDIO API (Zero Latency) ---
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    const audioCtx = new AudioContext();
+
+    // Buffers for SFX
+    const buffers = {
+        pop: null,
+        win: null
+    };
+
+    // BGM kept as HTML5 Audio for streaming (better for long files)
+    const bgm = new Audio('./bgm.mp3');
+    bgm.loop = true;
+
+    // Load SFX into Memory
+    async function loadSound(url, key) {
+        try {
+            const response = await fetch(url);
+            const arrayBuffer = await response.arrayBuffer();
+            const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+            buffers[key] = audioBuffer;
+            console.log(`Loaded ${key}`);
+        } catch (e) {
+            console.error(`Failed to load ${key}`, e);
+        }
+    }
+
+    loadSound('./pop.mp3', 'pop');
+    loadSound('./win.mp3', 'win');
+
+    function playSound(key) {
+        if (isMuted || !buffers[key]) return;
+
+        // Resume context if suspended (browser autoplay policy)
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+
+        const source = audioCtx.createBufferSource();
+        source.buffer = buffers[key];
+        source.connect(audioCtx.destination);
+        source.start(0);
+    }
+
     const musicBtn = document.getElementById('music-toggle');
     let isMuted = false;
 
-    // --- AUDIO DEBUG & SETUP ---
-    // Force correct source just in case
-    bgm.src = "./bgm.mp3";
-    sfxPop.src = "./pop.mp3";
-    sfxWin.src = "./win.mp3";
-
-    bgm.addEventListener('error', (e) => {
-        console.error("BGM Error:", bgm.error);
-        // Only alert once to avoid spam
-        if (!window.hasAlertedAudio) {
-            alert("⚠️ MUSIC ERROR: 'bgm.mp3' not found or blocked!\nPlease check file name on GitHub.");
-            window.hasAlertedAudio = true;
+    // --- AUTOPLAY HANDLING ---
+    function tryStartAudio() {
+        // Resume Web Audio Context
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
         }
-    });
-
-    // --- AUTOPLAY LOGIC ---
-    // 1. Try to play immediately
-    const playPromise = bgm.play();
-
-    if (playPromise !== undefined) {
-        playPromise.catch(() => {
-            console.log("Autoplay blocked. Waiting for interaction.");
-            // 2. Play on ANY click (Rescue)
-            document.addEventListener('click', () => {
-                if (!isMuted && bgm.paused) {
-                    bgm.play().catch(e => console.error("Resume play failed", e));
-                }
-            }, { once: true });
-        });
+        // Play BGM
+        if (!isMuted && bgm.paused) {
+            bgm.play().catch(() => {
+                console.log("BGM Autoplay blocked");
+            });
+        }
     }
+
+    // Try immediately
+    tryStartAudio();
+
+    // Try on first interaction (Fallback)
+    document.addEventListener('click', tryStartAudio, { once: true });
+    document.addEventListener('touchstart', tryStartAudio, { once: true });
 
     // HUD Target Slots
     const targetSlots = [
