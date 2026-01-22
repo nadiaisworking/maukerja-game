@@ -278,10 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (score >= 3) gameWin();
 
             // SFX
-            if (!isMuted) {
-                sfxPop.currentTime = 0;
-                sfxPop.play();
-            }
+            playSound('pop');
         } else {
             // Shake
             const originalTransform = e.target.style.transform;
@@ -316,7 +313,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 500);
 
         // Win SFX
-        if (!isMuted) sfxWin.play();
+        playSound('win');
     }
 
     function gameLose() {
