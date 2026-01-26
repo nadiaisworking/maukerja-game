@@ -391,7 +391,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // -------------------------------------------------------------------------
 
     // URL updated from your screenshot (Version 1)
-    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxXKY1pALFEjw267MVglrc4yrt9hoNgDEb8rSERErr78gYASmoUvuJEh7NbQDKRATCOqA/exec';
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx41Ia7C6iuBMX9qZrOIEyZBk7NCP29MBP1g0YC7PMe71kv32IQ9D3EOWfLdC_pqgrhLQ/exec';
 
     const form = document.getElementById('campaign-form');
 
@@ -406,6 +406,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     form.addEventListener('submit', (e) => {
         // DO NOT preventDefault(). Let the browser submit to the iframe.
+        console.log("Form submission triggered");
+
+        // Validate Action URL
+        if (!form.action || form.action.trim() === "") {
+            alert("CRITICAL ERROR: Google Script URL is missing in main.js!");
+            e.preventDefault();
+            return;
+        }
+        console.log("Submitting to:", form.action);
+
+        // Log Data
+        const formData = new FormData(form);
+        for (let [key, value] of formData.entries()) {
+            console.log(`${key}: ${value}`);
+        }
 
         // Defer UI changes to ensure form submission actually happens first
         setTimeout(() => {
@@ -416,6 +431,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Transition to Success Modal after delay
         setTimeout(() => {
+            console.log("Simulating success transition...");
             // Hide Form
             registerModal.classList.add('hidden');
             form.reset();

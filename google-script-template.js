@@ -34,13 +34,18 @@ function doPost(e) {
         var newRow = headers.map(function (header) {
             if (header === 'Timestamp') return new Date();
 
-            // Match header name to parameter name
-            // Header: "Full Name" -> Param: "full_name"
-            // Header: "Email" -> Param: "email"
-            // Header: "Whatsapp" -> Param: "whatsapp"
+            // Match header name to parameter name robustly
+            // 1. Convert header to lowercase
+            // 2. Replace multiple spaces with single space
+            // 3. Trim whitespace
+            // 4. Replace space with underscore
 
-            var paramName = header.toLowerCase().replace(' ', '_');
-            return e.parameter[paramName] || '';
+            var cleanHeader = header.toString().toLowerCase().trim().replace(/\s+/g, '_');
+
+            // Map common variations if user edited sheet headers slightly
+            // e.g. "Full Name " -> "full_name"
+
+            return e.parameter[cleanHeader] || '';
         });
 
         sheet.getRange(nextRow, 1, 1, newRow.length).setValues([newRow]);
