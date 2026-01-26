@@ -391,7 +391,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // -------------------------------------------------------------------------
 
     // URL updated from your screenshot (Version 1)
-    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx41Ia7C6iuBMX9qZrOIEyZBk7NCP29MBP1g0YC7PMe71kv32IQ9D3EOWfLdC_pqgrhLQ/exec';
+    // URL updated from your screenshot (Version 1)
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwhlm0-6GwPQqMcyTQI3jVRCJhHBMPjRc8k0pUjKrrZD9hJMy65jYLMChxJZkn1lFtiew/exec';
 
     const form = document.getElementById('campaign-form');
 
